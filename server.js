@@ -26,8 +26,9 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.static(path))
 
 // localhost:3000
-app.listen(3003, function () {
-    console.log("Server is running on 3003")
+const PORT = process.env.PORT || 3003
+app.listen(PORT, function () {
+    console.log("Server is running on : "+PORT)
 });
 
 // setting connection to mysql
