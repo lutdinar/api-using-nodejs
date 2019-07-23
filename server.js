@@ -407,7 +407,9 @@ app.post('/api/pengguna.json', function (req, res) {
 
             res.json(msg)
         }
-    })
+
+    });
+    
 });
 
 app.get('/api/penggunas.json', function (req, res) {
