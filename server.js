@@ -25,7 +25,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 
 app.use(express.static(path))
 
-// localhost:3000
+// localhost:PORT
 const PORT = process.env.PORT || 3003
 app.listen(PORT, function () {
     console.log("Server is running on : "+PORT)
@@ -33,10 +33,16 @@ app.listen(PORT, function () {
 
 // setting connection to mysql
 function getConnection() {
+    // return mysql.createConnection({
+    //     host: 'localhost',
+    //     user: 'root',
+    //     database: 'db_tugas_akhir'
+    // });
     return mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        database: 'db_tugas_akhir'
+        host: 'sakotji.com',
+        user: 'u5269467_lutdinar',
+        password: 'root123',
+        database: 'u5269467_db_tugas_akhir'
     });
 }
 
