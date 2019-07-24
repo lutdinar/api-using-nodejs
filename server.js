@@ -74,7 +74,7 @@ app.post('/api/auth.json', function (req, res) {
     connection.query(queryString, [username, md5(password)], function (err, rows, fields) {
 
         if (err) {
-            res.json(msg)
+            res.json(msg);
         }
 
         if (rows.length != 0) {
