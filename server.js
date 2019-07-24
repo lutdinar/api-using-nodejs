@@ -33,11 +33,6 @@ app.listen(PORT, function () {
 
 // setting connection to mysql
 function getConnection() {
-    // return mysql.createConnection({
-    //     host: 'localhost',
-    //     user: 'root',
-    //     database: 'db_tugas_akhir'
-    // });
     return mysql.createConnection({
         host: 'sakotji.com',
         user: 'u5269467_lutdinar',
