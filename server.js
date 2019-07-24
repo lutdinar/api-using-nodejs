@@ -26,7 +26,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.static(path))
 
 // localhost:PORT
-const PORT = process.env.PORT || 3003
+var PORT = process.env.PORT || 3003
 app.listen(PORT, function () {
     console.log("Server is running on : "+PORT)
 });
