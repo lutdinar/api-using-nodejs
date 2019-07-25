@@ -19,7 +19,7 @@ function getConnection() {
     //     user: 'root',
     //     database: 'db_tugas_akhir'
     // });
-    return mysql.createConnection({
+    return mysql.createPool({
           host: 'sakotji.com',
           user: 'u5269467_lutdinar',
           password: 'root123',
