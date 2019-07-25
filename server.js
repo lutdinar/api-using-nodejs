@@ -27,9 +27,12 @@ app.use(express.static(path))
 
 // localhost:PORT
 var PORT = process.env.PORT || 3005;
-app.listen(PORT, function () {
-    console.log("Server is running on : "+PORT)
-});
+// app.listen(PORT, function () {
+//     console.log("Server is running on : "+PORT)
+// });
+app.listen(PORT, () => {
+    console.log("Server is running on : " + PORT)
+})
 
 // setting connection to mysql
 function getConnection() {
