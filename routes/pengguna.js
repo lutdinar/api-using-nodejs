@@ -12,70 +12,34 @@ var detik = dateNow.getSeconds();
 
 var waktu = tahun + "-" + bulan + "-" + tanggal + " " + jam + ":" + menit + ":" + detik;
 
+var connection;
 function getConnection() {
     // return mysql.createConnection({
     //     host: 'localhost',
     //     user: 'root',
     //     database: 'db_tugas_akhir'
     // });
-    return mysql.createConnection({
+    connection = mysql.createConnection({
         host: 'sakotji.com',
         user: 'u5269467_lutdinar',
         password: 'root123',
         database: 'u5269467_db_tugas_akhir'
     });
+
+    connection.on('error', getConnection());
+
 }
-
-var connect = getConnection();
-connect.connect(function (err) {
-    if (err) {
-        console.log('pengguna.js a Error connection to database');
-        setTimeout(() => {
-            getConnection();
-        }, 200);
-    } else {
-        console.log('pengguna.js a Connected to database');
-    }
-});
-
-connect.on('error', function (err) {
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-        getConnection();
-    } else {
-        throw err;
-    }
-});
 
 /* GET pengguna listing. */
 router.get('/', function (req, res, next) {
-    
-    var queryString = "SELECT * FROM pengguna JOIN user ON user.id = pengguna.user_id";
-    var connection = getConnection();
-    var data = {
-        'status': 500,
-        'message': 'Internal server error'
-    };
-
-    connection.query(queryString, function (err, rows) {
-
-        if (err) {
-            data = {
-                error: err
-            };
-        }
-
-        if (rows.length != 0) {
-            data = rows;
-        }
-    });
 
     res.render('penggunaView', {
         title: 'Pengguna',
         active: 'pengguna',
         page: 'route: pengguna.js',
-        locate: 'Find me on routes/pengguna.js and view/penggunaView.ejs',
-        data: data
+        locate: 'Find me on routes/pengguna.js and view/penggunaView.ejs'
     });
+
 });
 
 router.post('/', function (req, res) {
@@ -95,7 +59,7 @@ router.post('/', function (req, res) {
     var created_at = waktu;
 
     var queryString = "INSERT INTO pengguna (nama, alamat, nomor_telepon, tanggal_lahir, jenis_kelamin_id, user_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     connection.query(queryString, [nama, alamat, no_telepon, tanggal_lahir, jenis_kelamin_id, user_id, created_at], function (err, results, fields) {
 
@@ -143,7 +107,7 @@ router.put('/', function (req, res) {
     var userId = req.body.user_id;
     var updatedAt = waktu;
 
-    var connection = getConnection();
+    // var connection = getConnection();
     var queryString = "UPDATE pengguna SET nama = ?, nomor_telepon = ?, alamat = ?, jenis_kelamin_id = ?, avatar = ?, user_id = ?, updated_at = ? WHERE id = ?";
 
     connection.query(queryString, [nama, noTelepon, alamat, jenisKelamin, avatar, userId, updatedAt, penggunaId], function (err, results, fields) {
@@ -184,7 +148,7 @@ router.delete('/', function (req, res) {
     var deletedAt = waktu;
 
     var queryString = "UPDATE pengguna SET deleted_at = ? WHERE id = ?";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     connection.query(queryString, [deletedAt, penggunaId], function (err, results, fields) {
 
@@ -221,7 +185,7 @@ router.get('/all.json', function (req, res) {
     };
 
     var queryString = "SELECT pengguna.id, pengguna.nama, pengguna.alamat, pengguna.nomor_telepon, DATE_FORMAT(pengguna.tanggal_lahir, '%d-%m-%Y') as tanggal_lahir, pengguna.jenis_kelamin_id, jenis_kelamin.nama jenis_kelamin_nama, DATE_FORMAT(jenis_kelamin.created_at, '%d-%m-%Y %T') as jenis_kelamin_created_at, DATE_FORMAT(jenis_kelamin.updated_at, '%d-%m-%Y %T') as jenis_kelamin_updated_at, DATE_FORMAT(jenis_kelamin.deleted_at, '%d-%m-%Y %T') as jenis_kelamin_deleted_at, pengguna.avatar, user.id user_id, user.username user_username, user.password user_password, user.role user_role, DATE_FORMAT(user.created_at, '%d-%m-%Y %T') as user_created_at, DATE_FORMAT(user.updated_at, '%d-%m-%Y %T') user_updated_at, DATE_FORMAT(user.deleted_at, '%d-%m-%Y %T') user_deleted_at, DATE_FORMAT(pengguna.created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(pengguna.updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(pengguna.deleted_at, '%d-%m-%Y %T') as deleted_at FROM pengguna JOIN user ON pengguna.user_id = user.id JOIN jenis_kelamin ON pengguna.jenis_kelamin_id = jenis_kelamin.id WHERE pengguna.deleted_at is null ORDER BY id DESC";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     connection.query(queryString, function (err, rows, fields) {
 
@@ -310,7 +274,7 @@ router.get('/findByAttribute.json', function (req, res) {
     }
 
     var queryString = "SELECT pengguna.id, pengguna.nama, pengguna.alamat, pengguna.nomor_telepon, DATE_FORMAT(pengguna.tanggal_lahir, '%d-%m-%Y') as tanggal_lahir, pengguna.jenis_kelamin_id, jenis_kelamin.nama jenis_kelamin_nama, DATE_FORMAT(jenis_kelamin.created_at, '%d-%m-%Y %T') as jenis_kelamin_created_at, DATE_FORMAT(jenis_kelamin.updated_at, '%d-%m-%Y %T') as jenis_kelamin_updated_at, DATE_FORMAT(jenis_kelamin.deleted_at, '%d-%m-%Y %T') as jenis_kelamin_deleted_at, pengguna.avatar, user.id user_id, user.username user_username, user.password user_password, user.role user_role, DATE_FORMAT(user.created_at, '%d-%m-%Y %T') as user_created_at, DATE_FORMAT(user.updated_at, '%d-%m-%Y %T') user_updated_at, DATE_FORMAT(user.deleted_at, '%d-%m-%Y %T') user_deleted_at, DATE_FORMAT(pengguna.created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(pengguna.updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(pengguna.deleted_at, '%d-%m-%Y %T') as deleted_at FROM pengguna JOIN user ON pengguna.user_id = user.id JOIN jenis_kelamin ON pengguna.jenis_kelamin_id = jenis_kelamin.id WHERE " + whereString + " ORDER BY id ASC";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     connection.query(queryString, param, function (err, rows, fields) {
 
@@ -349,7 +313,7 @@ router.get('/findById.json', function (req, res) {
     var penggunaId = req.query.id;
 
     var queryString = "SELECT pengguna.id, pengguna.nama, pengguna.alamat, pengguna.nomor_telepon, DATE_FORMAT(pengguna.tanggal_lahir, '%d-%m-%Y') as tanggal_lahir, pengguna.jenis_kelamin_id, jenis_kelamin.nama jenis_kelamin_nama, DATE_FORMAT(jenis_kelamin.created_at, '%d-%m-%Y %T') as jenis_kelamin_created_at, DATE_FORMAT(jenis_kelamin.updated_at, '%d-%m-%Y %T') as jenis_kelamin_updated_at, DATE_FORMAT(jenis_kelamin.deleted_at, '%d-%m-%Y %T') as jenis_kelamin_deleted_at, pengguna.avatar, user.id user_id, user.username user_username, user.password user_password, user.role user_role, DATE_FORMAT(user.created_at, '%d-%m-%Y %T') as user_created_at, DATE_FORMAT(user.updated_at, '%d-%m-%Y %T') user_updated_at, DATE_FORMAT(user.deleted_at, '%d-%m-%Y %T') user_deleted_at, DATE_FORMAT(pengguna.created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(pengguna.updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(pengguna.deleted_at, '%d-%m-%Y %T') as deleted_at FROM pengguna JOIN user ON pengguna.user_id = user.id JOIN jenis_kelamin ON pengguna.jenis_kelamin_id = jenis_kelamin.id WHERE pengguna.deleted_at is null AND pengguna.id = ? ORDER BY id ASC";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     connection.query(queryString, [penggunaId], function (err, rows, fields) {
 

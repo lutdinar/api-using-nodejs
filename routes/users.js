@@ -13,39 +13,58 @@ var detik = dateNow.getSeconds();
 
 var waktu = tahun + "-" + bulan + "-" + tanggal + " " + jam + ":" + menit + ":" + detik;
 
+var connection;
+
 function getConnection() {
+  // return mysql.createConnection({
+  //     host: 'localhost',
+  //     user: 'root',
+  //     database: 'db_tugas_akhir'
+  // });
+  connection = mysql.createConnection({
+    host: 'sakotji.com',
+    user: 'u5269467_lutdinar',
+    password: 'root123',
+    database: 'u5269467_db_tugas_akhir'
+  });
+
+  connection.on('error', getConnection());
+
+}
+
+// function getConnection() {
     // return mysql.createConnection({
     //     host: 'localhost',
     //     user: 'root',
     //     database: 'db_tugas_akhir'
     // });
-    return mysql.createConnection({
-      host: 'sakotji.com',
-      user: 'u5269467_lutdinar',
-      password: 'root123',
-      database: 'u5269467_db_tugas_akhir'
-    });
-}
+    // return mysql.createConnection({
+//       host: 'sakotji.com',
+//       user: 'u5269467_lutdinar',
+//       password: 'root123',
+//       database: 'u5269467_db_tugas_akhir'
+//     });
+// }
 
-var connect = getConnection();
-connect.connect(function (err) {
-    if (err) {
-        console.log('users.js a Error connection to database');
-        setTimeout(() => {
-            getConnection();
-        }, 200);
-    } else {
-        console.log('users.js a Connected to database');
-    }
-});
+// var connect = getConnection();
+// connect.connect(function (err) {
+//     if (err) {
+//         console.log('users.js a Error connection to database');
+//         setTimeout(() => {
+//             getConnection();
+//         }, 200);
+//     } else {
+//         console.log('users.js a Connected to database');
+//     }
+// });
 
-connect.on('error', function (err) {
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-        getConnection();
-    } else {
-        throw err;
-    }
-});
+// connect.on('error', function (err) {
+//     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+//         getConnection();
+//     } else {
+//         throw err;
+//     }
+// });
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -70,7 +89,7 @@ router.post('/', function (req, res) {
     var createdAt = waktu;
 
     var queryString = "INSERT INTO user (username, password, role, created_at) VALUES (?, ?, ?, ?)";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     connection.query(queryString, [username, md5(password), role, createdAt], function (err, results, fields) {
 
@@ -112,7 +131,7 @@ router.put('/', function (req, res) {
     var updatedAt = waktu;
 
     var queryString = "UPDATE user SET username = ?, password = ?, updated_at = ? WHERE id = ?";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     if (!!userId && !!username && !!password && !!updatedAt) {
         console.log("Updated user");
@@ -161,7 +180,7 @@ router.delete('/', function (req, res) {
     var userId = req.query.id;
     var deletedAt = waktu;
     var queryString = "UPDATE user SET deleted_at = ? WHERE id = ?";
-    var connection = getConnection()
+    // var connection = getConnection()
 
     connection.query(queryString, [deletedAt, userId], function (err, results, fields) {
 
@@ -199,7 +218,7 @@ router.get('/all.json', function (req, res) {
     };
 
     var queryString = "SELECT id, username, password, role, DATE_FORMAT(created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(deleted_at, '%d-%m-%Y %T') as deleted_at FROM user WHERE deleted_at is null ORDER BY id DESC";
-    var connection = getConnection()
+    // var connection = getConnection()
 
     connection.query(queryString, function (err, rows, fields) {
 
@@ -241,7 +260,7 @@ router.get('/findById.json', function (req, res) {
     };
 
     var userId = req.query.id;
-    var connection = getConnection();
+    // var connection = getConnection();
     var queryString = "SELECT id, username, password, role, DATE_FORMAT(created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(deleted_at, '%d-%m-%Y %T') as deleted_at FROM user WHERE id = ? AND deleted_at is null ORDER BY id ASC";
 
     connection.query(queryString, [userId], function (err, rows, fields) {
@@ -307,7 +326,7 @@ router.get('/findByAttributes.json', function (req, res) {
     }
 
     var queryString = "SELECT id, username, password, role, DATE_FORMAT(created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(deleted_at, '%d-%m-%Y %T') as deleted_at FROM user WHERE " + whereString + " ORDER BY id ASC";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     connection.query(queryString, param, function (err, rows, fields) {
 
@@ -344,7 +363,7 @@ router.post('/auth.json', function (req, res) {
     var password = req.body.password;
 
     var queryString = "SELECT id, username, password, role, DATE_FORMAT(created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(deleted_at, '%d-%m-%Y %T') as deleted_at FROM user WHERE username = ? AND password = ? AND deleted_at is null ORDER BY id ASC";
-    var connection = getConnection();
+    // var connection = getConnection();
 
     connection.query(queryString, [username, md5(password)], function (err, rows, fields) {
 
