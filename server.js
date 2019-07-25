@@ -30,7 +30,7 @@ var PORT = process.env.PORT || 3005;
 // app.listen(PORT, function () {
 //     console.log("Server is running on : "+PORT)
 // });
-app.listen(PORT, () => {
+app.listen(PORT, function () {
     console.log("Server is running on : " + PORT)
 })
 
@@ -53,7 +53,7 @@ var connect = getConnection();
 connect.connect(function (err) {
     if (err) {
         console.log('Error connection to database');
-        setTimeout(() => {
+        setTimeout(function () {
             getConnection();
         }, 200);
     } else {
