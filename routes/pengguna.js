@@ -26,6 +26,8 @@ function getConnection() {
         database: 'u5269467_db_tugas_akhir'
     });
 
+    connection.connect();
+
     connection.on('error', getConnection());
 
 }
