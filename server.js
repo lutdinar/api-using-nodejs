@@ -36,7 +36,7 @@ app.listen(PORT, function () {
 
 // setting connection to mysql
 function getConnection() {
-    return mysql.createConnection({
+    return mysql.createPool({
         host: 'sakotji.com',
         user: 'u5269467_lutdinar',
         password: 'root123',
@@ -48,26 +48,6 @@ function getConnection() {
     //     database: 'db_tugas_akhir'
     // });
 }
-
-var connect = getConnection();
-connect.connect(function (err) {
-    if (err) {
-        console.log('Error connection to database');
-        setTimeout(function () {
-            getConnection();
-        }, 200);
-    } else {
-        console.log('Connected to database');
-    }
-});
-
-connect.on('error', function (err) {
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-        getConnection();
-    } else {
-        throw err;
-    }
-});
 
 app.get('/', function (req, res) {
     console.log('Responding from root route')
