@@ -182,7 +182,7 @@ router.get('/all.json', function (req, res) {
     };
 
     var queryString = "SELECT pengguna.id, pengguna.nama, pengguna.alamat, pengguna.nomor_telepon, DATE_FORMAT(pengguna.tanggal_lahir, '%d-%m-%Y') as tanggal_lahir, pengguna.jenis_kelamin_id, jenis_kelamin.nama jenis_kelamin_nama, DATE_FORMAT(jenis_kelamin.created_at, '%d-%m-%Y %T') as jenis_kelamin_created_at, DATE_FORMAT(jenis_kelamin.updated_at, '%d-%m-%Y %T') as jenis_kelamin_updated_at, DATE_FORMAT(jenis_kelamin.deleted_at, '%d-%m-%Y %T') as jenis_kelamin_deleted_at, pengguna.avatar, user.id user_id, user.username user_username, user.password user_password, user.role user_role, DATE_FORMAT(user.created_at, '%d-%m-%Y %T') as user_created_at, DATE_FORMAT(user.updated_at, '%d-%m-%Y %T') user_updated_at, DATE_FORMAT(user.deleted_at, '%d-%m-%Y %T') user_deleted_at, DATE_FORMAT(pengguna.created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(pengguna.updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(pengguna.deleted_at, '%d-%m-%Y %T') as deleted_at FROM pengguna JOIN user ON pengguna.user_id = user.id JOIN jenis_kelamin ON pengguna.jenis_kelamin_id = jenis_kelamin.id WHERE pengguna.deleted_at is null ORDER BY id DESC";
-    // var connection = getConnection();
+    var connection = getConnection();
 
     connection.query(queryString, function (err, rows, fields) {
 
