@@ -26,18 +26,23 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.static(path))
 
 // localhost:PORT
-var PORT = process.env.PORT || 3003
+var PORT = process.env.PORT || 3005;
 app.listen(PORT, function () {
     console.log("Server is running on : "+PORT)
 });
 
 // setting connection to mysql
 function getConnection() {
+    // return mysql.createConnection({
+    //     host: 'sakotji.com',
+    //     user: 'u5269467_lutdinar',
+    //     password: 'root123',
+    //     database: 'u5269467_db_tugas_akhir'
+    // });
     return mysql.createConnection({
-        host: 'sakotji.com',
-        user: 'u5269467_lutdinar',
-        password: 'root123',
-        database: 'u5269467_db_tugas_akhir'
+        host: 'localhost',
+        user: 'root',
+        database: 'db_tugas_akhir'
     });
 }
 

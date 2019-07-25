@@ -1,0 +1,310 @@
+<% include ./partials/head %>
+
+<div class="container mt-5 mb-5">
+
+    <div class="alert bg-light" role="alert">
+        <h4 class="alert-heading">Hello, <%= page %>!</h4>
+        <hr>
+        <p><%= locate %></p>
+    </div>
+
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header alert alert-primary" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne">
+                        /users <span class="badge badge-primary">GET</span>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <a href="javascript:(void)" class="text-primary">http://localhost:3003/users</a>
+                    <hr>
+                    <p>Halaman Index</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header alert alert-primary" id="headingAllUser">
+                <h2 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseAllUser"
+                        aria-expanded="false" aria-controls="collapseAllUser">
+                        /users/all.json <span class="badge badge-primary">GET</span>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseAllUser" class="collapse" aria-labelledby="headingAllUser" data-parent="#accordionExample">
+                <div class="card-body">
+                    <a href="javascript:(void)" class="text-primary">http://localhost:3003/users/all.json</a>
+                    <hr>
+                    <p>Halaman Semua User</p>
+                    <hr>
+
+                    <form action="/users/all.json" method="GET">
+                        <button type="submit" class="btn btn-outline-success">Coba</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header alert alert-primary" id="headingFindUser">
+                <h2 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseFindUser"
+                        aria-expanded="false" aria-controls="collapseFindUser">
+                        /users/findById.json <span class="badge badge-primary">GET</span>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseFindUser" class="collapse" aria-labelledby="headingFindUser"
+                data-parent="#accordionExample">
+                <div class="card-body">
+                    <a href="javascript:(void)" class="text-primary">http://localhost:3003/users/findById.json?id=</a>
+                    <hr><p>Halaman Cari User berdasarkan Id</p><hr>
+                    <form action="/users/findById.json" method="GET" class="needs-validation" novalidate>
+                        <div class="form-group row">
+                            <label for="inputUsername" class="col-sm-2 col-form-label">Id : </label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="id" name="id"
+                                    placeholder="id" required>
+                                <div class="invalid-tooltip">
+                                    ID harus diisi!
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Coba</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header alert alert-primary" id="headingFindUserAttribute">
+                <h2 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseFindUserAttribute"
+                        aria-expanded="false" aria-controls="collapseFindUserAttribute">
+                        /users/findByAttributes.json <span class="badge badge-primary">GET</span>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseFindUserAttribute" class="collapse" aria-labelledby="headingFindUserAttribute"
+                data-parent="#accordionExample">
+                <div class="card-body">
+                    <a href="javascript:(void)" class="text-primary">http://localhost:3003/users/findByAttributes.json</a>
+                    <hr><p>Halaman Cari User berdasarkan Attribute User</p><hr>
+                    <form action="/users/findByAttributes.json" method="GET" class="needs-validation" novalidate>
+                        <div class="form-group row">
+                            <label for="inputUsername" class="col-sm-2 col-form-label">Username : </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="username" placeholder="Username">
+                                <div class="invalid-tooltip">
+                                    Username harus diisi!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputUsername" class="col-sm-2 col-form-label">Password : </label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                <div class="invalid-tooltip">
+                                    Password harus diisi!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputUsername" class="col-sm-2 col-form-label">Role : </label>
+                            <div class="col-sm-10">
+                                <select name="role" class="custom-select">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="1">Admin Web</option>
+                                    <option value="2">Mobile</option>
+                                    <option value="3">Web</option>
+                                </select>
+                                <div class="invalid-tooltip">
+                                    Role harus diisi!
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Coba</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header alert alert-success" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        /users <span class="badge badge-success">POST</span>
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <a href="javascript:void(0)" class="text-primary">http://localhost:3003/users</a>
+                    <hr><p>Halaman Tambah User</p><hr>
+                    <form action="/users" method="POST" class="needs-validation" novalidate>
+                        <div class="form-group row">
+                            <label for="inputUsername" class="col-sm-2 col-form-label">Username : </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                                <div class="invalid-tooltip">
+                                    Harus diisi!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Password : </label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                <div class="invalid-tooltip">
+                                    Password harus diisi!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputRole" class="col-sm-2 col-form-label">Role : </label>
+                            <div class="col-sm-10">
+                                <select id="inputRole" name="role" class="custom-select" required>
+                                    <option value="">-- Pilih --</option>
+                                    <option value="1">Admin Web</option>
+                                    <option value="2">Mobile</option>
+                                    <option value="3">Web</option>
+                                </select>
+                                <div class="invalid-tooltip">
+                                    Role harus dipilih!
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header alert alert-warning" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        /users <span class="badge badge-warning">PUT</span>
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                    <a href="javascript:void(0)" class="text-primary">http://localhost:3003/users</a>
+                    <hr><p>Halaman Update User</p><hr>
+                    <form action="/users" method="PUT" class="needs-validation" novalidate >
+                        <div class="form-group row">
+                            <label for="inputUsername" class="col-sm-2 col-form-label">id : </label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" name="id"
+                                    placeholder="id" required>
+                                <div class="invalid-tooltip">
+                                    Harus diisi!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Username : </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="username"
+                                    placeholder="Username" required>
+                                <div class="invalid-tooltip">
+                                    Username harus diisi!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Password : </label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="password"
+                                    placeholder="Password" required>
+                                <div class="invalid-tooltip">
+                                    Password harus diisi!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputRole" class="col-sm-2 col-form-label">Role : </label>
+                            <div class="col-sm-10">
+                                <select name="role" class="custom-select" required>
+                                    <option value="">-- Pilih --</option>
+                                    <option value="1">Admin Web</option>
+                                    <option value="2">Mobile</option>
+                                    <option value="3">Web</option>
+                                </select>
+                                <div class="invalid-tooltip">
+                                    Role harus dipilih!
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-success">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header alert alert-danger" id="headingDeleteUser">
+                <h2 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseDeleteUser" aria-expanded="false" aria-controls="collapseDeleteUser">
+                        /users <span class="badge badge-danger">DELETE</span>
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseDeleteUser" class="collapse" aria-labelledby="headingDeleteUser"
+                data-parent="#accordionExample">
+                <div class="card-body">
+                    <a href="javascript:void(0)" class="text-primary">http://localhost:3003/users?id=/a>
+                    <hr>
+                    <p>Halaman DELETE User</p>
+                    <hr>
+
+                    <form class="needs-validation" novalidate>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<% include ./partials/footer %>
