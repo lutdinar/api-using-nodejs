@@ -51,7 +51,10 @@ router.get('/', function (req, res, next) {
     
     var queryString = "SELECT * FROM pengguna JOIN user ON user.id = pengguna.user_id";
     var connection = getConnection();
-    var data;
+    var data = {
+        'status': 500,
+        'message': 'Internal server error'
+    };
 
     connection.query(queryString, function (err, rows) {
 
@@ -63,8 +66,6 @@ router.get('/', function (req, res, next) {
 
         if (rows.length != 0) {
             data = rows;
-        } else {
-            
         }
     });
 
