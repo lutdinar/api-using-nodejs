@@ -27,25 +27,6 @@ function getConnection() {
 
 }
 
-connec.connect(function (err) {
-    if (err) {
-        console.log('permintaanBantuan.js a Error connection to database');
-        setTimeout(function() {
-            getConnection();
-        }, 200);
-    } else {
-        console.log('permintaanBantuan.js a Connected to database');
-    }
-});
-
-connect.on('error', function (err) {
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-        getConnection();
-    } else {
-        throw err;
-    }
-});
-
 /* GET permintaan-bantuan listing. */
 router.get('/', function (req, res, next) {
     // res.send('respond with a permintaanBantuan.js');
