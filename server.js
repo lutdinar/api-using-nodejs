@@ -67,7 +67,7 @@ connect.on('error', function (err) {
     } else {
         throw err;
     }
-})
+});
 
 app.get('/', function (req, res) {
     console.log('Responding from root route')

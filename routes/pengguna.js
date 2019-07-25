@@ -30,8 +30,19 @@ var connect = getConnection();
 connect.connect(function (err) {
     if (err) {
         console.log('pengguna.js a Error connection to database');
+        setTimeout(() => {
+            getConnection();
+        }, 200);
     } else {
         console.log('pengguna.js a Connected to database');
+    }
+});
+
+connect.on('error', function (err) {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        getConnection();
+    } else {
+        throw err;
     }
 });
 
