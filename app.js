@@ -43,8 +43,9 @@ app.use(function(err, req, res, next) {
   res.render('error', {title: 'Error'});
 });
 
-app.listen(3003, function () {
-  console.log("Server is running on 3003")
+var PORT = process.env.PORT || 3003;
+app.listen(PORT, function () {
+  console.log("Server is running on : "+PORT)
 });
 
 module.exports = app;
