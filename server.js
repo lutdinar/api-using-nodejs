@@ -50,10 +50,21 @@ var connect = getConnection();
 connect.connect(function (err) {
     if (err) {
         console.log('Error connection to database');
+        setTimeout(() => {
+            getConnection();
+        }, 2000);
     } else {
         console.log('Connected to database');
     }
 });
+
+connect.on('error', function (err) {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        getConnection();
+    } else {
+        
+    }
+})
 
 app.get('/', function (req, res) {
     console.log('Responding from root route')
