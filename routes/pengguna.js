@@ -27,9 +27,6 @@ function getConnection() {
 
 }
 
-var conn = getConnection();
-conn.connect();
-
 /* GET pengguna listing. */
 router.get('/', function (req, res, next) {
 
