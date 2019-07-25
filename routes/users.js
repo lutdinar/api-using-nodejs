@@ -28,7 +28,17 @@ function getConnection() {
     database: 'u5269467_db_tugas_akhir'
   });
 
-  connection.connect();
+  connection.connect(function (err) {
+      if (err) {
+        console.log('users.js a Error connection to database');
+        setTimeout(function () {
+            getConnection();
+            }, 200);
+      } else {
+          console.log('users.js a Connected to database');
+      }
+
+  });
 
   connection.on('error', function (err) {
       console.log(err.code);
