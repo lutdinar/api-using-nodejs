@@ -62,7 +62,7 @@ connect.on('error', function (err) {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
         getConnection();
     } else {
-        
+        throw err;
     }
 })
 
