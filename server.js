@@ -52,7 +52,7 @@ connect.connect(function (err) {
         console.log('Error connection to database');
         setTimeout(() => {
             getConnection();
-        }, 2000);
+        }, 200);
     } else {
         console.log('Connected to database');
     }
