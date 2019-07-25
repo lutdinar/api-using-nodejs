@@ -13,42 +13,6 @@ var detik = dateNow.getSeconds();
 
 var waktu = tahun + "-" + bulan + "-" + tanggal + " " + jam + ":" + menit + ":" + detik;
 
-var connection;
-
-function getConnection() {
-  // return mysql.createConnection({
-  //     host: 'localhost',
-  //     user: 'root',
-  //     database: 'db_tugas_akhir'
-  // });
-  return mysql.createConnection({
-    host: 'sakotji.com',
-    user: 'u5269467_lutdinar',
-    password: 'root123',
-    database: 'u5269467_db_tugas_akhir'
-  });
-
-    connec.connect(function (err) {
-        if (err) {
-            console.log('permintaanBantuan.js a Error connection to database');
-            setTimeout(function() {
-                getConnection();
-            }, 200);
-        } else {
-            console.log('permintaanBantuan.js a Connected to database');
-        }
-    });
-
-    connect.on('error', function (err) {
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            getConnection();
-        } else {
-            throw err;
-        }
-    });
-
-}
-
 function getConnection() {
     // return mysql.createConnection({
     //     host: 'localhost',
