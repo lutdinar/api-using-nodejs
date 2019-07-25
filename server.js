@@ -462,7 +462,7 @@ app.get('/api/find/penggunas.json', function (req, res) {
     var msg = {
         'status': 500,
         'message': 'Internal server error'
-    };
+    }
 
     var nama = req.query.nama;
     var alamat = req.query.alamat;
