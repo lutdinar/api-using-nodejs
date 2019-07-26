@@ -1050,16 +1050,16 @@ app.get('/api/:id/permintaanBantuan.json', function (req, res) {
 
 });
 
-app.put('/api/web/:id/permintaanBantuan/updateStatus.json', function (req, res) {
-    console.log("Updating data permintaan bantuan by id : "+req.params.id);
+app.put('/api/:id/permintaanBantuan/updateStatus.json', function (req, res) {
+    console.log("Updating data permintaan bantuan by id : "+req.query.id);
 
     var msg = {
         'status': 500,
         'message': 'Internal server error'
     };
 
-    var permintaanBantuanId = req.params.id;
-    var statusPermintaan = req.params.statusPermintaanBantuan;
+    var permintaanBantuanId = req.query.id;
+    var statusPermintaan = req.query.statusPermintaanBantuan;
     var updatedAt = waktu;
     var queryString = "UPDATE permintaan_bantuan SET status_permintaan_bantuan = ?, updated_at = ? WHERE id = ?";
     var connection = getConnection();
@@ -1518,7 +1518,7 @@ app.delete('/api/:id/jenisLayanan.json', function (req, res) {
 
     })
 
-})
+});
 
 
 // UPLOAD IMAGE HANDLING
@@ -1548,7 +1548,6 @@ var uploadImage = function(req, res, next) {
         msg['message'] = "Successfully uploading image";
         msg['path'] = '/images/'+namaGambar;
 
-        console.log(msg);
         return res.json(msg);
 
     } catch (e) {
