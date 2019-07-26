@@ -1051,14 +1051,14 @@ app.get('/api/:id/permintaanBantuan.json', function (req, res) {
 });
 
 app.put('/api/:id/permintaanBantuan/updateStatus.json', function (req, res) {
-    console.log("Updating data permintaan bantuan by id : "+req.query.id);
+    console.log("Updating data permintaan bantuan by id : "+req.params.id);
 
     var msg = {
         'status': 500,
         'message': 'Internal server error'
     };
 
-    var permintaanBantuanId = req.query.id;
+    var permintaanBantuanId = req.params.id;
     var statusPermintaan = req.query.statusPermintaanBantuan;
     var updatedAt = waktu;
     var queryString = "UPDATE permintaan_bantuan SET status_permintaan_bantuan = ?, updated_at = ? WHERE id = ?";
@@ -1207,7 +1207,7 @@ app.get('/api/jenisKelamins.json', function (req, res) {
 });
 
 app.get('/api/:id/jenisKelamin.json', function (req, res) {
-    console.log("Fetching data jenis kelamin by id");
+    console.log("Fetching data jenis kelamin by id : " + req.params.id);
 
     var msg = {
         'status': 500,
