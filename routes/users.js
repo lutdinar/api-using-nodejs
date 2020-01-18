@@ -14,17 +14,12 @@ var detik = dateNow.getSeconds();
 var waktu = tahun + "-" + bulan + "-" + tanggal + " " + jam + ":" + menit + ":" + detik;
 
 function getConnection() {
-    // return mysql.createConnection({
-    //     host: 'localhost',
-    //     user: 'root',
-    //     database: 'db_tugas_akhir'
-    // });
-    return mysql.createPool({
-          host: 'sakotji.com',
-          user: 'u5269467_lutdinar',
-          password: 'root123',
-          database: 'u5269467_db_tugas_akhir'
+    return mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        database: 'db_tugas_akhir'
     });
+  
 }
 
 /* GET users listing. */

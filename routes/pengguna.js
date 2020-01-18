@@ -13,24 +13,18 @@ var detik = dateNow.getSeconds();
 var waktu = tahun + "-" + bulan + "-" + tanggal + " " + jam + ":" + menit + ":" + detik;
 
 function getConnection() {
-    // return mysql.createConnection({
-    //     host: 'localhost',
-    //     user: 'root',
-    //     database: 'db_tugas_akhir'
-    // });
-    return  mysql.createPool({
-        host: 'sakotji.com',
-        user: 'u5269467_lutdinar',
-        password: 'root123',
-        database: 'u5269467_db_tugas_akhir'
+    return mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        database: 'db_tugas_akhir'
     });
 
 }
 
 /* GET pengguna listing. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
 
-    res.render('penggunaView', {
+    res.render('penggunaViews', {
         title: 'Pengguna',
         active: 'pengguna',
         page: 'route: pengguna.js',
@@ -41,7 +35,6 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res) {
     console.log('Inserted a new data pengguna');
-
     var msg = {
         'status': 500,
         'message': "Internal server error"

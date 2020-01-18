@@ -26,7 +26,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.static(path))
 
 // localhost:PORT
-var PORT = process.env.PORT || 3005;
+var PORT = process.env.PORT || 3003;
 // app.listen(PORT, function () {
 //     console.log("Server is running on : "+PORT)
 // });
@@ -36,17 +36,17 @@ app.listen(PORT, function () {
 
 // setting connection to mysql
 function getConnection() {
-    return mysql.createPool({
-        host: 'sakotji.com',
-        user: 'u5269467_lutdinar',
-        password: 'root123',
-        database: 'u5269467_db_tugas_akhir'
-    });
-    // return mysql.createConnection({
-    //     host: 'localhost',
-    //     user: 'root',
-    //     database: 'db_tugas_akhir'
+    // return mysql.createPool({
+    //     host: 'sakotji.com',
+    //     user: 'u5269467_lutdinar',
+    //     password: 'root123',
+    //     database: 'u5269467_db_tugas_akhir'
     // });
+    return mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        database: 'db_tugas_akhir'
+    });
 }
 
 app.get('/', function (req, res) {
@@ -944,7 +944,7 @@ app.get('/api/find/permintaanBantuans.json', function (req, res) {
         whereString += "AND 1=1 ";
     }
 
-    var queryString = "SELECT permintaan_bantuan.id, DATE_FORMAT(permintaan_bantuan.tanggal, '%d-%m-%Y %T') as tanggal, permintaan_bantuan.jenis_layanan_id, jenis_layanan.nama jenis_layanan_nama, permintaan_bantuan.lat, permintaan_bantuan.lon, permintaan_bantuan.alamat_tempat_kejadian, permintaan_bantuan.status_permintaan_bantuan, permintaan_bantuan.foto, permintaan_bantuan.pengguna_id, pengguna.nama pengguna_nama, DATE_FORMAT(pengguna.tanggal_lahir, '%d-%m-%Y') as pengguna_tanggal_lahir, pengguna.nomor_telepon pengguna_nomor_telepon, pengguna.alamat pengguna_alamat, pengguna.jenis_kelamin_id pengguna_jenis_kelamin_id, jenis_kelamin.nama jenis_kelamin_nama, pengguna.user_id pengguna_user_id, pengguna.created_at pengguna_created_at, pengguna.updated_at pengguna_updated_at, pengguna.deleted_at pengguna_deleted_at, DATE_FORMAT(permintaan_bantuan.created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(permintaan_bantuan.updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(permintaan_bantuan.deleted_at, '%d-%m-%Y %T') as deleted_at FROM permintaan_bantuan JOIN pengguna ON permintaan_bantuan.pengguna_id = pengguna.id JOIN jenis_kelamin ON pengguna.jenis_kelamin_id = jenis_kelamin.id JOIN jenis_layanan ON permintaan_bantuan.jenis_layanan_id = jenis_layanan.id WHERE "+whereString+" ORDER BY id DESC";
+    var queryString = "SELECT permintaan_bantuan.id, DATE_FORMAT(permintaan_bantuan.tanggal, '%d-%m-%Y %T') as tanggal, permintaan_bantuan.jenis_layanan_id, jenis_layanan.nama jenis_layanan_nama, permintaan_bantuan.lat, permintaan_bantuan.lon, permintaan_bantuan.alamat_tempat_kejadian, permintaan_bantuan.status_permintaan_bantuan, permintaan_bantuan.foto, permintaan_bantuan.pengguna_id, pengguna.nama pengguna_nama, DATE_FORMAT(pengguna.tanggal_lahir, '%d-%m-%Y') as pengguna_tanggal_lahir, pengguna.nomor_telepon pengguna_nomor_telepon, pengguna.alamat pengguna_alamat, pengguna.jenis_kelamin_id pengguna_jenis_kelamin_id, jenis_kelamin.nama jenis_kelamin_nama, pengguna.avatar, pengguna.user_id pengguna_user_id, pengguna.created_at pengguna_created_at, pengguna.updated_at pengguna_updated_at, pengguna.deleted_at pengguna_deleted_at, DATE_FORMAT(permintaan_bantuan.created_at, '%d-%m-%Y %T') as created_at, DATE_FORMAT(permintaan_bantuan.updated_at, '%d-%m-%Y %T') as updated_at, DATE_FORMAT(permintaan_bantuan.deleted_at, '%d-%m-%Y %T') as deleted_at FROM permintaan_bantuan JOIN pengguna ON permintaan_bantuan.pengguna_id = pengguna.id JOIN jenis_kelamin ON pengguna.jenis_kelamin_id = jenis_kelamin.id JOIN jenis_layanan ON permintaan_bantuan.jenis_layanan_id = jenis_layanan.id WHERE "+whereString+" ORDER BY id DESC";
     var connection = getConnection();
 
     connection.query(queryString, param, function(err, rows, fields) {
